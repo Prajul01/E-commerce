@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>E-commerce |{{$panel}}|{{$title}}</title>
+    <title>E-commerce |{{$title}}</title>
 
     @yield('csss')
 

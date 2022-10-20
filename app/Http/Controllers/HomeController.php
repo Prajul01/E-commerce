@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\backend\BackendBaseController;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class HomeController extends BackendBaseController
 {
+    protected $route ='home';
+    protected $panel ='Dashboard';
+    protected $view ='home';
+    protected $title;
     /**
      * Create a new controller instance.
      *
@@ -23,7 +28,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $this->title='Home';
+        return view($this->__loadDataToView($this->route));
+//        return view($this->__loadDataToView( 'home'));
+//        return view('home');
     }
 
     /**
@@ -33,7 +41,8 @@ class HomeController extends Controller
      */
     public function adminHome()
     {
-        return view('backend.adminHome');
+        $this->title='Admin';
+        return view($this->__loadDataToView('backend.adminHome'));
     }
 
     /**
@@ -41,8 +50,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function managerHome()
-    {
-        return view('backend.managerHome');
-    }
+//    public function managerHome()
+//    {
+//        return view('backend.managerHome');
+//    }
 }
