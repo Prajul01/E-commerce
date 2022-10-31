@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\frontend\FrontendBaseController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+ use RealRashid\SweetAlert\Facades\Alert;
 
-class LoginController extends Controller
+class LoginController extends FrontendBaseController
 {
+    protected $title;
+    protected $view ='frontend.';
+
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -41,6 +46,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $this->title= 'Product';
         $input = $request->all();
 
         $this->validate($request, [
@@ -55,11 +61,14 @@ class LoginController extends Controller
             }else if (auth()->user()->type == 'manager') {
                 return redirect()->route('manager.home');
             }else{
-                return redirect()->route('home');
+                return redirect()->route('frontend.home');
             }
         }else{
-            return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+            Alert::error('Error', 'Email  or Password didnot matched');
+            return view($this->__loadDataToView( 'auth.login'));
+
+
+
         }
 
     }

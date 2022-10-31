@@ -16,12 +16,12 @@
                         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        {!! Form::open(['route' => $route .'store' , 'method' => 'post' , 'class' => 'form-horizontal']) !!}
+        {!! Form::open(['route' => $route .'store' , 'method' => 'post' , 'class' => 'form-horizontal','enctype'=>'multipart/form-data']) !!}
         @csrf
 
         <div class="card-body">
             <div class="form-group row">
-                {!! Form::label('name', 'Name: <span class="required">*</span>',['class' => 'col-form-label'],false); !!}
+                {!! Form::label('name', 'Name: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
                 <br>
                 <div class="col-sm-10">
                     {!! Form::text('name', '', [ 'class'=>'form-control', 'placeholder'=>'Enter name']); !!}
@@ -30,10 +30,61 @@
                     @enderror
                 </div>
             </div>
+
+            <div class="form-group row">
+                {!! Form::label('price', 'Price: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
+                <br>
+                <div class="col-sm-10">
+                    {!! Form::text('price', '', [ 'class'=>'form-control', 'placeholder'=>'Enter price']); !!}
+                    @error('price')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group row">
+                {!! Form::label('description', 'Description: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
+                <br>
+                <div class="col-sm-10">
+                    {!! Form::textarea('description', '', [ 'class'=>'ckeditor form-control', 'placeholder'=>'Enter Description','id'=>'summernotes',]); !!}
+                    @error('description')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group row">
+                {!! Form::label('short_description', 'Short-Description: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
+                <br>
+                <div class="col-sm-10">
+                    {!! Form::textarea('short_description', '', [ 'class'=>'ckeditor form-control', 'placeholder'=>'Enter Description','id'=>'summernotes',]); !!}
+                    @error('short_description')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {!! Form::label('category_id', 'Category: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
+                <div class="col-sm-10">
+                    {!! Form::select('category_id', $data['categories'], null,['class' => 'form-control','placeholder' => 'Select Category']) !!}
+                    @error('category_id')
+                    <span class="text text-danger">{{$message}}</span>
+                    @enderror
+                </div>
         </div>
+            <div class="form-group row">
+                {!! Form::label('image','Image: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
+                <div class="col-sm-10">
+                    {!! Form::file('image', [ 'class'=>'form-control','id'=>'image_file','name'=>'image_file']); !!}
+                    @error('image')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
+                </div>
+            </div>
+
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+                        {!! Form::close() !!}
 
     </div>
 </div>

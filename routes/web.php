@@ -4,6 +4,14 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\backend\ProductController;
+use App\Http\Controllers\frontend\HomeBaseController;
+use App\Http\Controllers\backend\BannerController;
+use App\Http\Controllers\backend\SliderController;
+use App\Http\Controllers\backend\MiscellaneousController;
+use App\Http\Controllers\backend\SuscribersController;
+use App\Http\Controllers\backend\EmailController;
+use App\Http\Controllers\backend\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +24,9 @@ use App\Http\Controllers\backend\CategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('frontend.home');
+//});
 
 Auth::routes();
 
@@ -27,22 +35,62 @@ Auth::routes();
 All Normal Users Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:user'])->group(function () {
+//Route::middleware(['auth', 'user-access:user'])->group(function () {
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-});
+    Route::get('/home', [HomeBaseController::class, 'index'])->name('frontend.home');
+    Route::get('/', [HomeBaseController::class, 'main'])->name('frontend.welcome');
+    Route::get('single.{id}', [HomeBaseController::class, 'single'])->name('frontend.single');
+    Route::get('cart-list', [HomeBaseController::class, 'cartlist'])->name('cart.list');
+    Route::get('checkout', [HomeBaseController::class, 'checkout'])->name('checkout');
+    Route::post('cart-store/{id}', [HomeBaseController::class, 'addToCart'])->name('cart.store');
+    Route::delete('cart-destroy/{id}', [HomeBaseController::class, 'removeCart'])->name('cart.destroy');
+    Route::get('f.product', [HomeBaseController::class, 'product'])->name('frontend.product');
+Route::resource('suscribers',SuscribersController::class);
+Route::get('changeStatusSuscribers', [SuscribersController::class, 'changeStatusSuscribers'])->name('changeStatusSuscribers');
+Route::post('order', [HomeBaseController::class, 'order'])->name('order');
+Route::post('sendConfirmationemail', [HomeBaseController::class, 'sendConfirmationemail'])->name('sendConfirmationemail');
+Route::get('profile-edit', [\App\Http\Controllers\backend\UserController::class, 'edit'])->name('profile.edit');
+Route::put('profile-update', [\App\Http\Controllers\backend\UserController::class, 'update'])->name('profile.update');
+
+
+//});
 
 /*------------------------------------------
 --------------------------------------------
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
+Route::middleware(['web','auth'])->group(function(){
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::resource('category',CategoryController::class);
-});
+    Route::resource('miscellaneous',MiscellaneousController::class);
 
+
+    Route::resource('banner',BannerController::class);
+    Route::get('changeStatusbanner', [BannerController::class, 'changeStatusbanner'])->name('changeStatusbanner');
+
+    Route::resource('slider',SliderController::class);
+    Route::get('changeStatusslider', [SliderController::class, 'changeStatusslider'])->name('changeStatusslider');
+
+
+    Route::resource('product',ProductController::class);
+    Route::get('product-recycles',[ProductController::class,'recycle'])->name('product.recycle');
+    Route::post('restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
+    Route::delete('permanent/delete/{id}', [ProductController::class, 'forceDelete'])->name('product.forceDelete');
+
+    //email
+    Route::get('email', [EmailController::class, 'create'])->name('email.create');
+    Route::post('send', [EmailController::class, 'send'])->name('email.send');
+
+    Route::resource('user',UserController::class);
+    Route::get('changeUser', [UserController::class, 'changeUser'])->name('changeUser');
+
+
+
+});
+});
 /*------------------------------------------
 --------------------------------------------
 All Admin Routes List

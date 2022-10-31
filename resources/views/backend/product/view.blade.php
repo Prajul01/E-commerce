@@ -18,6 +18,34 @@
                             <td>Name</td>
                             <td>{{$data['row']->name}}</td>
                         </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td>Rs {{$data['row']->price}}</td>
+                        </tr>
+                        <tr>
+                            <td>Category</td>
+                            <td>{{$data['row']->Category->name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{!!$data['row']->description!!}</td>
+                        </tr>
+                        <tr>
+                            <td>Short-Description</td>
+                            <td>{!! $data['row']->short_description !!}</td>
+                        </tr>
+                        <tr>
+                            <td>Created-By</td>
+                            <td>{{$data['row']->Creator->name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Image</td>
+                            <td>
+
+                                <img src="{{asset('uploads/images/product/'.$data['row']->image)}}"  alt="" style="height: 200px; width: 200px; boarder:15px" >
+                            </td>
+                        </tr>
+
 
                         </tbody>
                     </table>

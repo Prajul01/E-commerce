@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\backend\BackendBaseController;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends BackendBaseController
@@ -29,9 +31,10 @@ class HomeController extends BackendBaseController
     public function index()
     {
         $this->title='Home';
-        return view($this->__loadDataToView($this->route));
-//        return view($this->__loadDataToView( 'home'));
-//        return view('home');
+//        $data['product']=Product::all();
+//        $data['category']=Category::all();
+        return view($this->__loadDataToView('frontend.'.$this->route));
+
     }
 
     /**

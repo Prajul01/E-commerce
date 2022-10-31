@@ -29,6 +29,12 @@
                 <tr>
                     <th>Sn</th>
                     <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Short-Description</th>
+                    <th>Created-By</th>
+                    <th>Image</th>
                     <th>Action</th>
 
                 </tr>
@@ -38,6 +44,15 @@
                 <tr>
                     <td>{{$i+1}} </td>
                     <td>{{$cat->name}}</td>
+                    <td>Rs {{$cat->price}}</td>
+                    <td>{{$cat->Category->name}}</td>
+                    <td>{!! $cat->description !!}</td>
+                    <td>{!! $cat->short_description !!}</td>
+                    <td>{{$cat->Creator->name}}</td>
+                    <td>
+                        <img src="{{asset('uploads/images/product/'.$cat->image)}}"  alt="" style="height: 100px; width: 100px; boarder:15px" >
+                    </td>
+
                     <td>   <a href="{{route($route .'show',$cat->id)}}" class="btn btn-sm btn-primary">
                             <i class="fa fa-eye"></i>
                         </a>
@@ -65,8 +80,13 @@
                 <tr>
                     <th>Sn</th>
                     <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Short-Description</th>
+                    <th>Created-By</th>
+                    <th>Image</th>
                     <th>Action</th>
-
                 </tr>
                 </tfoot>
             </table>

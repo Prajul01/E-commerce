@@ -124,11 +124,7 @@ class CategoryController extends BackendBaseController
         return redirect()->route($this->__loadDataToView($this->route . 'index'))->with('success','Data Deleted Successfully');
     }
 
-//    public function check_slug(Request $request)
-//    {
-//        $slug = str_slug($request->name);
-//        return response()->json(['slug' => $slug]);
-//    }
+
 //    public function recycle()
 //    {
 //        $this->title= 'Recycle';

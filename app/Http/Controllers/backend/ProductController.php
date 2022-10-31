@@ -5,7 +5,9 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProductController extends BackendBaseController
@@ -33,7 +35,9 @@ class ProductController extends BackendBaseController
      */
     public function create()
     {  $this->title= 'Create';
-        return view($this->__loadDataToView($this->view . 'create'));
+        $data['categories'] = Category::pluck('name','id');
+        $data['created'] = User::pluck('name','id');
+        return view($this->__loadDataToView($this->view . 'create'),compact('data'));
     }
 
     /**
@@ -44,7 +48,18 @@ class ProductController extends BackendBaseController
      */
     public function store(ProductRequest $request)
     {
+
+
+
+        $file = $request->file('image_file');
+        if ($request->hasFile("image_file")) {
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/images/product/'), $fileName);
+            $request->request->add(['image' => $fileName]);
+        }
+
         $request->request->add(['created_by' => auth()->user()->id]);
+
         $data['row']=Product::create($request->all());
         if ($data['row']){
             request()->session()->flash('success',$this->panel . 'Created Successfully');
@@ -64,6 +79,7 @@ class ProductController extends BackendBaseController
      */
     public function show($id)
     {
+//        $data['categories'] = Category::pluck('name','id');
 
         $this->title= 'View';
         $data['row']=Product::findOrFail($id);
@@ -78,7 +94,9 @@ class ProductController extends BackendBaseController
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    { $this->title= 'Edit';
+    {
+        $data['categories'] = Category::pluck('name','id');
+        $this->title= 'Edit';
         $data['row']=Product::findOrFail($id);
         return view($this->__loadDataToView($this->view . 'edit'),compact('data'));
     }
@@ -93,6 +111,13 @@ class ProductController extends BackendBaseController
     public function update(Request $request, $id)
     {
         $request->request->add(['updated_by' => auth()->user()->id]);
+        $file = $request->file('image_file');
+        if ($request->hasFile("image_file")) {
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/images/product/'), $fileName);
+            $request->request->add(['image' => $fileName]);
+        }
+//        dd($request->all());
         $data['row'] =Product::findOrFail($id);
         if(!$data ['row']){
             request()->session()->flash('error','Invalid Request');

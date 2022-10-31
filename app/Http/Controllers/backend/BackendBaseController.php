@@ -18,4 +18,5 @@ class BackendBaseController extends Controller
         });
         return $viewPath;
     }
+
 }

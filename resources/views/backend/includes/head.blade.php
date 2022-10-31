@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>E-commerce |{{$title}}</title>
+    <title>E-commerce |{{$panel}}|{{$title}}</title>
 
     @yield('csss')
 
@@ -26,4 +26,11 @@
     <link rel="stylesheet" href="{{asset('backend/plugins/daterangepicker/daterangepicker.css')}}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('backend/plugins/summernote/summernote-bs4.min.css')}}">
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.ckeditor').ckeditor();
+        });
+    </script>
+    <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
 </head>

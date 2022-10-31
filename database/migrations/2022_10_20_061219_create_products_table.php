@@ -18,11 +18,13 @@ return new class extends Migration
             $table->string('name');
             $table->float('price');
             $table->string('image');
+            $table->string('description');
+            $table->string('short_description');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
-            $table->unsignedBigInteger('updated_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('updated_by')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();
