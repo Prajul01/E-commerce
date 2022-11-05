@@ -38,19 +38,23 @@ All Normal Users Routes List
 //Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     Route::get('/home', [HomeBaseController::class, 'index'])->name('frontend.home');
+    Route::get('nav', [HomeBaseController::class, 'nav'])->name('frontend.nav');
     Route::get('/', [HomeBaseController::class, 'main'])->name('frontend.welcome');
     Route::get('single.{id}', [HomeBaseController::class, 'single'])->name('frontend.single');
     Route::get('cart-list', [HomeBaseController::class, 'cartlist'])->name('cart.list');
     Route::get('checkout', [HomeBaseController::class, 'checkout'])->name('checkout');
     Route::post('cart-store/{id}', [HomeBaseController::class, 'addToCart'])->name('cart.store');
     Route::delete('cart-destroy/{id}', [HomeBaseController::class, 'removeCart'])->name('cart.destroy');
-    Route::get('f.product', [HomeBaseController::class, 'product'])->name('frontend.product');
+    Route::get('frontend.product', [HomeBaseController::class, 'product'])->name('frontend.product');
+    Route::get('frontend.category/{id}', [HomeBaseController::class, 'category'])->name('f.category');
 Route::resource('suscribers',SuscribersController::class);
 Route::get('changeStatusSuscribers', [SuscribersController::class, 'changeStatusSuscribers'])->name('changeStatusSuscribers');
 Route::post('order', [HomeBaseController::class, 'order'])->name('order');
 Route::post('sendConfirmationemail', [HomeBaseController::class, 'sendConfirmationemail'])->name('sendConfirmationemail');
-Route::get('profile-edit', [\App\Http\Controllers\backend\UserController::class, 'edit'])->name('profile.edit');
-Route::put('profile-update', [\App\Http\Controllers\backend\UserController::class, 'update'])->name('profile.update');
+Route::get('profile-edit', [UserController::class, 'edit'])->name('profile.edit');
+Route::put('profile-update', [UserController::class, 'update'])->name('profile.update');
+
+
 
 
 //});
@@ -65,6 +69,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::resource('category',CategoryController::class);
+    Route::get('changeStatuscategory', [CategoryController::class, 'changeStatuscategory'])->name('changeStatuscategory');
+
     Route::resource('miscellaneous',MiscellaneousController::class);
 
 
@@ -75,10 +81,14 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('changeStatusslider', [SliderController::class, 'changeStatusslider'])->name('changeStatusslider');
 
 
+
+
     Route::resource('product',ProductController::class);
-    Route::get('product-recycles',[ProductController::class,'recycle'])->name('product.recycle');
-    Route::post('restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
-    Route::delete('permanent/delete/{id}', [ProductController::class, 'forceDelete'])->name('product.forceDelete');
+    Route::get('changeStatusproduct', [ProductController::class, 'changeStatusproduct'])->name('changeStatusproduct');
+
+//    Route::get('product-recycles',[ProductController::class,'recycle'])->name('product.recycle');
+//    Route::post('restore/{id}', [ProductController::class, 'restore'])->name('product.restore');
+//    Route::delete('permanent/delete/{id}', [ProductController::class, 'forceDelete'])->name('product.forceDelete');
 
     //email
     Route::get('email', [EmailController::class, 'create'])->name('email.create');
@@ -96,10 +106,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:manager'])->group(function () {
-
-    Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager.home');
-});
+//Route::middleware(['auth', 'user-access:manager'])->group(function () {
+//
+//    Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager.home');
+//});
 //Route::get('post-recycles',[CategoryController::class,'recycle'])->name('category.recycle');
 //Route::post('restore/{id}', [CategoryController::class, 'restore'])->name('category.restore');
 //Route::delete('permanent/delete/{id}', [CategoryController::class, 'forceDelete'])->name('category.forceDelete');

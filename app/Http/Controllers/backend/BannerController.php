@@ -102,9 +102,8 @@ class BannerController extends BackendBaseController
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BannerRequest $request, $id)
     {
-        $request->request->add(['updated_by' => auth()->user()->id]);
         $file = $request->file('image_file');
         if ($request->hasFile("image_file")) {
             $fileName = time() . '_' . $file->getClientOriginalName();

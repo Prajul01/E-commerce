@@ -13,7 +13,7 @@
                                     <img class="img-responsive " src="{{asset('frontend/images/bag.jpg')}}" alt=" " />
                                 </div>
                                 <div class="col-md-7 banner-off">
-                                    <h2>FLAT {{$slider->percent}} 0FF</h2>
+                                    <h2>FLAT {{$slider->title}} 0FF</h2>
                                     <label>FOR ALL PURCHASE <b>VALUE</b></label>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et </p>
                                     <span class="on-get">GET NOW</span>

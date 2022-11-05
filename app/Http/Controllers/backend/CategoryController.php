@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Suscribers;
 use Illuminate\Http\Request;
 
 class CategoryController extends BackendBaseController
@@ -93,7 +94,7 @@ class CategoryController extends BackendBaseController
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         $request->request->add(['updated_by' => auth()->user()->id]);
         $data['row'] =Category::findOrFail($id);
@@ -117,11 +118,21 @@ class CategoryController extends BackendBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+//    public function destroy($id)
+//    {
+//
+//        Category::findorfail($id)->delete();
+//        return redirect()->route($this->__loadDataToView($this->route . 'index'))->with('success','Data Deleted Successfully');
+//    }
 
-        Category::findorfail($id)->delete();
-        return redirect()->route($this->__loadDataToView($this->route . 'index'))->with('success','Data Deleted Successfully');
+
+    public function changeStatuscategory(Request $request)
+    {
+        $category = Category::find($request->id);
+        $category->status = $request->status;
+        $category->save();
+
+        return response()->json(['success'=>'Status change successfully.']);
     }
 
 

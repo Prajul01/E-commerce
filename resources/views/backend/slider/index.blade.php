@@ -28,7 +28,7 @@
                 <thead>
                 <tr>
                     <th>Sn</th>
-                    <th>OFF-Percent</th>
+                    <th>Title</th>
                     <th>Description</th>
                     <th>Image</th>
                     <th>Status</th>
@@ -40,7 +40,7 @@
                 @foreach($data['row'] as $i=>$cat)
                 <tr>
                     <td>{{$i+1}} </td>
-                    <td>{{$cat->percent}}</td>
+                    <td>{{$cat->title}}</td>
 
                     <td>{!! $cat->description !!}</td>
 
@@ -61,7 +61,7 @@
                         <a href="{{route($route .'edit',$cat->id)}}" class="btn btn-sm btn-warning">
                             <i class="fa fa-pencil-alt"></i>
                         </a>
-                        <form class="d-inline" action="{{route($route .'destroy',$cat->id)}}" method="post">
+                        <form class="delete" action="{{route($route .'destroy',$cat->id)}}" method="post">
                             <input type="hidden" name="_method" value="delete"/>
                             @csrf
                             <button type="submit" class="btn btn-sm btn-danger ">
@@ -156,4 +156,10 @@
         })
     </script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <script>
+        $('.delete').on("submit", function(){
+            return confirm("Do you want to delete this item?");
+        });
+    </script>
 @endsection

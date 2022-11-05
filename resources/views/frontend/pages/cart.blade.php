@@ -34,7 +34,13 @@
 
 
                     <?php $total = 0?>
-                    @foreach($data['cartItems'] as $card)
+{{--                     ($posts as $post)--}}
+
+
+
+
+
+                    @forelse($data['cartItems'] as $card)
 
 
                         <tr>
@@ -88,7 +94,13 @@
                             <?php  $quan += $card->quantity ?>
 
 
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td> <h2 class="text-danger" style="color: red;text-align: end">No items found</h2></td></tr>
+
+
+
+                    @endforelse
 
 
                     </tbody>

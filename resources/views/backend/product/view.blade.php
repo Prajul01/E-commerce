@@ -38,6 +38,12 @@
                             <td>Created-By</td>
                             <td>{{$data['row']->Creator->name}}</td>
                         </tr>
+@if($data['row']->updated_by != null)
+                        <tr>
+                            <td>Updated-By</td>
+                            <td>{{$data['row']->Updator->name}}</td>
+                        </tr>
+@endif
                         <tr>
                             <td>Image</td>
                             <td>

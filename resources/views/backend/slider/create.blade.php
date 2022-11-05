@@ -21,11 +21,11 @@
 
         <div class="card-body">
             <div class="form-group row">
-                {!! Form::label('percent', 'Percent: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
+                {!! Form::label('title', 'Title: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
                 <br>
                 <div class="col-sm-10">
-                    {!! Form::text('percent', '', [ 'class'=>'form-control', 'placeholder'=>'Enter  off percent']); !!}
-                    @error('percent')
+                    {!! Form::text('title', '', [ 'class'=>'form-control', 'placeholder'=>'Enter  off percent']); !!}
+                    @error('title')
                     <p class="text-danger">{{$message}}</p>
                     @enderror
                 </div>
@@ -51,6 +51,18 @@
                     @error('image')
                     <p class="text-danger">{{$message}}</p>
                     @enderror
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {!! Form::label('status','Status: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
+                <div class="form-check form-check-inline">
+                    {{Form::radio('status','1',['class'=>'form-check-input'])}}
+                    <label class="form-check-label ml-2" for="inlineRadio1">Active</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    {{Form::radio('status','0',['class'=>'form-check-input'])}}
+                    <label class="form-check-label ml-2" for="inlineRadio2">De-active</label>
                 </div>
             </div>
 

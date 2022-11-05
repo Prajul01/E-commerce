@@ -81,6 +81,27 @@
                 </div>
             </div>
 
+            <div class="col-sm-9" style="margin:auto">
+
+            </div>
+
+            <div class="form-group row">
+                {!! Form::label('status','Status: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
+                <div class="form-check form-check-inline">
+                    {{Form::radio('status','1',['class'=>'form-check-input'])}}
+                    <label class="form-check-label ml-2" for="inlineRadio1">Active</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    {{Form::radio('status','0',['class'=>'form-check-input'])}}
+                    <label class="form-check-label ml-2" for="inlineRadio2">De-active</label>
+                </div>
+            </div>
+
+
+
+
+
+
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>

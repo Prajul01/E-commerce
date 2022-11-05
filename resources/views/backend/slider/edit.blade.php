@@ -18,11 +18,11 @@
 
             <div class="card-body">
                 <div class="form-group row">
-                    {!! Form::label('name', 'Name: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
+                    {!! Form::label('title', 'Title: <span class="required">*</span>',['class' => 'col-sm-2 col-form-label'],false); !!}
                     <br>
                     <div class="col-sm-10">
-                        {!! Form::text('name', null, [ 'class'=>'form-control', 'placeholder'=>'Enter name']); !!}
-                        @error('name')
+                        {!! Form::text('title', null, [ 'class'=>'form-control', 'placeholder'=>'Enter  off percent']); !!}
+                        @error('title')
                         <p class="text-danger">{{$message}}</p>
                         @enderror
                     </div>

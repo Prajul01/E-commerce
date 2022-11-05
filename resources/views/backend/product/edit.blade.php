@@ -12,7 +12,6 @@
             <!-- /.card-header -->
             <!-- form start -->
             {!! Form::model($data['row'],['route' => [$route . 'update',$data['row']->id],'method' => 'put','files' => true]) !!}
-{{--            {!! Form::model($data['row'], ['route' => [$route.'update', $data['row']->id,'files' => 'true' ]]) !!}--}}
             {!! Form::hidden('_method', 'PUT') !!}
             @csrf
 
@@ -75,6 +74,9 @@
                         <p class="text-danger">{{$message}}</p>
                         @enderror
                     </div>
+                    @error('updated_by')
+                    <p> error</p>
+                    @enderror
                 </div>
                 <div class="form-group row">
                 <lable><strong>Old-Image</strong></lable>

@@ -60,7 +60,7 @@
                         <a href="{{route($route .'edit',$cat->id)}}" class="btn btn-sm btn-warning">
                             <i class="fa fa-pencil-alt"></i>
                         </a>
-                        <form class="d-inline" action="{{route($route .'destroy',$cat->id)}}" method="post">
+                        <form class="delete" action="{{route($route .'destroy',$cat->id)}}" method="post">
                             <input type="hidden" name="_method" value="delete"/>
                             @csrf
                             <button type="submit" class="btn btn-sm btn-danger ">
@@ -77,17 +77,17 @@
                 @endforeach
 
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>Sn</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>Status</th>
-                    <th>Action</th>
+{{--                <tfoot>--}}
+{{--                <tr>--}}
+{{--                    <th>Sn</th>--}}
+{{--                    <th>Name</th>--}}
+{{--                    <th>Description</th>--}}
+{{--                    <th>Image</th>--}}
+{{--                    <th>Status</th>--}}
+{{--                    <th>Action</th>--}}
 
-                </tr>
-                </tfoot>
+{{--                </tr>--}}
+{{--                </tfoot>--}}
             </table>
         </div>
         <!-- /.card-body -->
@@ -106,7 +106,6 @@
 
 @endsection
 @section('jss')
-
     <script src="{{asset('backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
@@ -155,4 +154,10 @@
         })
     </script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <script>
+        $('.delete').on("submit", function(){
+            return confirm("Do you want to delete this item?");
+        });
+    </script>
 @endsection

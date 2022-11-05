@@ -1,32 +1,19 @@
 @extends('frontend.layout.frontend')
 @section('slider')
-
     <div class="container">
         <div class="shoes-grid">
-
-
-
-
-
-
-
-
-
             <a href="">
                 <div class="wrap-in">
                     <div class="wmuSlider example1 slide-grid">
                         <div class="wmuSliderWrapper">
                             @foreach($data['slider'] as $s)
                                 <article style="position: absolute; width: 100%; opacity: 0;">
-
-
-
                                     <div class="banner-matter">
                                         <div class="col-md-5 banner-bag">
                                             <img class="img-responsive " src="{{asset('uploads/images/slider/'.$s->image)}}" alt=" ">
                                         </div>
                                         <div class="col-md-7 banner-off">
-                                            <h2>FLAT {{$s->percent}}% 0FF</h2>
+                                            <h2>{{$s->title}}</h2>
                                             <label>FOR ALL PURCHASE <b>VALUE</b></label>
                                             <p>{!! $s->description !!} </p>
                                             <span class="on-get">GET NOW</span>
@@ -97,26 +84,13 @@
                 <a href="{{route('frontend.single',$product->id)}}" >
                     <img src="{{asset('uploads/images/product/'.$product->image)}}"  alt="" style="height: 300px; width: 243px; boarder:15px" >
 
-                    {{--                <img class="img-responsive chain" src="{{asset('uploads/images/product/'.$product->image)}}" height="auto" width="auto"  alt=" " /></a>--}}
+{{--                                    <img class="img-responsive chain" src="{{asset('uploads/images/product/'.$product->image)}}" height="auto" width="auto"  alt=" " /></a>--}}
                     <span class="star"> </span>
                     <div class="grid-chain-bottom" >
                         <h6><a href="{{route('frontend.single',$product->id)}}">{{$product->name}}</a></h6>
                         <div class="star-price" >
                             <div class="dolor-grid" >
                                 <span class="actual">Rs {{$product->price}}</span>
-
-{{--                                <span class="rating">--}}
-{{--									        <input type="radio" class="rating-input" id="rating-input-1-5" name="rating-input-1">--}}
-{{--									        <label for="rating-input-1-5" class="rating-star1"> </label>--}}
-{{--									        <input type="radio" class="rating-input" id="rating-input-1-4" name="rating-input-1">--}}
-{{--									        <label for="rating-input-1-4" class="rating-star1"> </label>--}}
-{{--									        <input type="radio" class="rating-input" id="rating-input-1-3" name="rating-input-1">--}}
-{{--									        <label for="rating-input-1-3" class="rating-star"> </label>--}}
-{{--									        <input type="radio" class="rating-input" id="rating-input-1-2" name="rating-input-1">--}}
-{{--									        <label for="rating-input-1-2" class="rating-star"> </label>--}}
-{{--									        <input type="radio" class="rating-input" id="rating-input-1-1" name="rating-input-1">--}}
-{{--									        <label for="rating-input-1-1" class="rating-star"> </label>--}}
-{{--							    	   </span>--}}
                             </div>
                             <form action="{{ route('cart.store',$product->id)}}" method="POST" enctype="multipart/form-data">
                                 @csrf

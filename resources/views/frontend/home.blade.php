@@ -17,7 +17,7 @@
                                             <img class="img-responsive " src="{{asset('uploads/images/slider/'.$s->image)}}" alt=" ">
                                         </div>
                                         <div class="col-md-7 banner-off">
-                                            <h2>FLAT {{$s->percent}}% 0FF</h2>
+                                            <h2>{{$s->title}}</h2>
                                             <label>FOR ALL PURCHASE <b>VALUE</b></label>
                                             <p>{!! $s->description !!} </p>
                                             <span class="on-get">GET NOW</span>

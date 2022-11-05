@@ -12,26 +12,6 @@
                 </ul>
                 <div class="clearfix"> </div>
             </div>
-{{--            <div class="top-header-right">--}}
-{{--                <div class="down-top">--}}
-{{--                    <select class="in-drop">--}}
-{{--                        <option value="English" class="in-of">English</option>--}}
-{{--                        <option value="Japanese" class="in-of">Japanese</option>--}}
-{{--                        <option value="French" class="in-of">French</option>--}}
-{{--                        <option value="German" class="in-of">German</option>--}}
-{{--                    </select>--}}
-{{--                </div>--}}
-{{--                <div class="down-top top-down">--}}
-{{--                    <select class="in-drop">--}}
-
-{{--                        <option value="Dollar" class="in-of">Dollar</option>--}}
-{{--                        <option value="Yen" class="in-of">Yen</option>--}}
-{{--                        <option value="Euro" class="in-of">Euro</option>--}}
-{{--                    </select>--}}
-{{--                </div>--}}
-{{--                <!---->--}}
-{{--                <div class="clearfix"> </div>--}}
-{{--            </div>--}}
             <div class="clearfix"> </div>
         </div>
     </div>
@@ -42,17 +22,16 @@
                     <a href="{{route('frontend.home')}}"><img src="{{asset('frontend/images/logo.png')}}" alt=" " /></a>
                 </div>
 
-                <div class="search">
-                    <div class="w3l_search">
+                <div class="search" style="border: 2px solid white">
+
                         <form action="{{ route('frontend.product') }}" method="GET" role="search">
 
                             <div class="input-group">
                         <span class="input-group-btn mr-5 mt-1">
-                            <button class="btn btn-info" type="submit" title="Search projects">
-                                <span class="fa fa-search"></span>
+
                             </button>
                         </span>
-                                <input type="text" class="form-control mr-2" name="term" placeholder="Search Products"id="term" >
+                                <input type="text" class="form-control mr-4" name="term" placeholder="Search Products"id="term" style="border:2px  solid #ff8080" width="100%" >
                                 <a href="{{ route('frontend.product') }}" class=" mt-1">
                             <span class="input-group-btn">
 
@@ -60,7 +39,7 @@
                                 </a>
                             </div>
                         </form>
-                    </div>
+
                 </div>
                 <div class="clearfix"> </div>
             </div>
@@ -92,7 +71,15 @@
                 @endif
                     @if(auth()->user() != NULL)
                 <div class="cart">
-                    <a href="{{ route('cart.list')}}"><span> </span>CART</a>
+                    <a href="{{ route('cart.list')}}"><span> </span>CART </a>
+                    <sup style="margin: 2px;width: 00px;
+
+    background: #ff8080;
+
+    border-radius: 80px;
+    padding: 4px;
+   color: white;
+    "> 4 </sup>
                 </div>
                     @endif
                 <div class="clearfix"> </div>

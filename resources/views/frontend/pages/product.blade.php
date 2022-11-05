@@ -35,6 +35,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 @endforeach
 
+
 @foreach($data['product'] as $product)
     <div>
         <div class="  product-grid">

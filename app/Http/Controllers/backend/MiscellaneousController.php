@@ -32,10 +32,10 @@ class MiscellaneousController extends BackendBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {  $this->title= 'Create';
-        return view($this->__loadDataToView($this->view . 'create'));
-    }
+//    public function create()
+//    {  $this->title= 'Create';
+//        return view($this->__loadDataToView($this->view . 'create'));
+//    }
 
     /**
      * Store a newly created resource in storage.

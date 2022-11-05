@@ -11,7 +11,7 @@ class Product extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table='products';
-    protected $fillable=['name', 'price', 'category_id', 'created_by','image','updated_by','description','short_description'];
+    protected $fillable=['name', 'price', 'category_id', 'created_by','image','updated_by','description','short_description','status'];
 
     public function Category()
     {
@@ -21,5 +21,10 @@ class Product extends Model
     public function Creator()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function Updator()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

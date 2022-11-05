@@ -5,8 +5,10 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Slider;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -95,10 +97,12 @@ class ProductController extends BackendBaseController
      */
     public function edit($id)
     {
+
         $data['categories'] = Category::pluck('name','id');
         $this->title= 'Edit';
         $data['row']=Product::findOrFail($id);
         return view($this->__loadDataToView($this->view . 'edit'),compact('data'));
+
     }
 
     /**
@@ -108,8 +112,9 @@ class ProductController extends BackendBaseController
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, $id)
     {
+
         $request->request->add(['updated_by' => auth()->user()->id]);
         $file = $request->file('image_file');
         if ($request->hasFile("image_file")) {
@@ -117,7 +122,7 @@ class ProductController extends BackendBaseController
             $file->move(public_path('uploads/images/product/'), $fileName);
             $request->request->add(['image' => $fileName]);
         }
-//        dd($request->all());
+
         $data['row'] =Product::findOrFail($id);
         if(!$data ['row']){
             request()->session()->flash('error','Invalid Request');
@@ -180,5 +185,17 @@ class ProductController extends BackendBaseController
             request()->session()->flash('error', $this->panel.' Delete failed');
         }
         return redirect()->route($this->__loadDataToView($this->route . 'index'))->with('success','Data Deleted Successfully');
+    }
+
+    public function changeStatusproduct(Request $request)
+    {
+        $slider = Product::find($request->id);
+        $slider->status = $request->status;
+        $slider->save();
+
+        return response()->json(['success'=>'Status change successfully.']);
+
+
+
     }
 }

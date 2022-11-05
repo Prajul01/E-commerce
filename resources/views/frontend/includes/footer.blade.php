@@ -39,8 +39,7 @@
 
                 <ul>
                     @foreach($data['category'] as $cat)
-                        <li class="item1"><a href="#">{{$cat->name}}</a>
-
+                        <li><a href="{{route('frontend.category',$cat->id)}}" id="category_id">{{$cat->name}}</a>
                         </li>
                     @endforeach
 

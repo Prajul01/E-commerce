@@ -39,7 +39,7 @@ class UserController extends BackendBaseController
         $data['footer']=Miscellaneous::all();
         return view($this->__loadDataToView('frontend.pages.profile'),compact('data'));
 //        return view('frontend.pages.profile',compact('data'));
-//        return view($this->__loadDataToView($this->view . 'pages.profile'),compact('data'));
+        return view($this->__loadDataToView($this->view . 'pages.profile'),compact('data'));
     }
 
     public function update(UserRequest $request){
@@ -60,9 +60,9 @@ class UserController extends BackendBaseController
     }
     public function changeUser(Request $request)
     {
-        $slider = User::find($request->id);
-        $slider->type = $request->type;
-        $slider->save();
+        $user = User::find($request->id);
+        $user->type = $request->type;
+        $user->save();
 
         return response()->json(['success'=>'Status change successfully.']);
     }

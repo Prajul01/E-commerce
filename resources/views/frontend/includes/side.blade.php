@@ -1,12 +1,22 @@
 <div class="sub-cate">
-    <div class=" top-nav rsidebar span_1_of_left">
+    <div class=" top-nav rsidebar span_1_of_left" style="border: 1px white solid;">
         <h3 class="cate">CATEGORIES</h3>
-        <ul class="menu">
-            @foreach($data['category'] as $cat)
-            <li class="item1"><a href="#">{{$cat->name}}</a>
+        <ul class= >
 
-            </li>
-            @endforeach
+            @foreach($data['category'] as $cat)
+                <div style="border: 1px solid black;padding: 10px">
+                <li><a href="{{route('f.category',$cat->id)}}" id="category_id" > <strong>{{$cat->name}}</strong></a>
+                </li>
+                </div>
+                @endforeach
+
+
+
+
+
+
+
+
         </ul>
     </div>
     <!--initiate accordion-->
@@ -37,5 +47,5 @@
 {{--            <h6><a href="single.html">Lorem ipsum dolor</a></h6>--}}
 {{--        </div>--}}
     </div>
-    <a class="view-all all-product" href="product.html">VIEW ALL PRODUCTS<span> </span></a>
+    <a class="view-all all-product" href="{{route('frontend.product')}}">VIEW ALL PRODUCTS<span> </span></a>
 </div>

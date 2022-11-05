@@ -29,6 +29,7 @@
                 <tr>
                     <th>Sn</th>
                     <th>Name</th>
+                    <th>Status</th>
                     <th>Action</th>
 
                 </tr>
@@ -38,19 +39,26 @@
                 <tr>
                     <td>{{$i+1}} </td>
                     <td>{{$cat->name}}</td>
+                    <td>
+
+                    <input data-id="{{$cat->id}}" class="toggle-class" type="checkbox" data-onstyle="success"
+                           data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="De-Active"
+                        {{ $cat->status ? 'checked' : '' }}>
+                    </td>
+
                     <td>   <a href="{{route($route .'show',$cat->id)}}" class="btn btn-sm btn-primary">
                             <i class="fa fa-eye"></i>
                         </a>
                         <a href="{{route($route .'edit',$cat->id)}}" class="btn btn-sm btn-warning">
                             <i class="fa fa-pencil-alt"></i>
                         </a>
-                        <form class="d-inline" action="{{route($route .'destroy',$cat->id)}}" method="post">
-                            <input type="hidden" name="_method" value="delete"/>
-                            @csrf
-                            <button type="submit" class="btn btn-sm btn-danger ">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </form>
+{{--                        <form class="d-inline" action="{{route($route .'destroy',$cat->id)}}" method="post">--}}
+{{--                            <input type="hidden" name="_method" value="delete"/>--}}
+{{--                            @csrf--}}
+{{--                            <button type="submit" class="btn btn-sm btn-danger ">--}}
+{{--                                <i class="fa fa-trash"></i>--}}
+{{--                            </button>--}}
+{{--                        </form>--}}
 
 
 
@@ -65,6 +73,7 @@
                 <tr>
                     <th>Sn</th>
                     <th>Name</th>
+                    <th>Status</th>
                     <th>Action</th>
 
                 </tr>
@@ -83,6 +92,8 @@
     <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
 @endsection
 @section('jss')
 
@@ -115,4 +126,24 @@
             });
         });
     </script>
+
+    <script>
+        $(function() {
+            $('.toggle-class').change(function() {
+                var status = $(this).prop('checked') == true ? 1 : 0;
+                var id = $(this).data('id');
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: '/changeStatuscategory',
+                    data: {'status': status, 'id': id},
+                    success: function(data){
+                        console.log(data.success)
+                    }
+                });
+            })
+        })
+    </script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 @endsection

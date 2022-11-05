@@ -17,6 +17,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -28,13 +29,26 @@ class HomeBaseController extends FrontendBaseController
     protected $view ='frontend.';
 //    protected $route ='category.';
     protected $title;
+
+    public function nav(){
+
+
+        $data['cartItems'] = Cart::where('user_id',Auth::user()->id)->get();
+
+        return view($this->__loadDataToView($this->view . 'includes.nav'),compact('data'));
+
+
+    }
+
+
     public function index()
     {
+//        $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
         $this->title= 'Home';
         $data = [];
 //        $data['row'] =User::findOrFail($id);
-        $data['product']=Product::latest()->take(5)->get();
-        $data['category']=Category::all();
+        $data['product']=Product::latest()->take(6)->get();
+        $data['category']=Category::where('status',1)->get();
         $data['banner'] = Banner::latest()->take(2)->where('status',1)->get();
         $data['slider'] = Slider::latest()->take(3)->where('status',1)->get();
 //        dd($data['slider']);
@@ -45,8 +59,8 @@ class HomeBaseController extends FrontendBaseController
     public function main()
     {
         $this->title= 'Home';
-        $data['product']=Product::latest()->take(5)->get();;
-        $data['category']=Category::all();
+        $data['product']=Product::latest()->take(6)->get();;
+        $data['category']=Category::where('status',1)->get();
         $data['banner'] = Banner::latest()->take(2)->where('status',1)->get();
         $data['slider'] = Slider::latest()->take(3)->where('status',1)->get();
         $data['footer']=Miscellaneous::all();
@@ -56,9 +70,10 @@ class HomeBaseController extends FrontendBaseController
     public function single($id)
     {
         $data = [];
+
         $this->title= 'Single';
         $data['pro']=Product::where('id', $id)->first();
-        $data['category']=Category::all();
+        $data['category']=Category::where('status',1)->get();
         $data['footer']=Miscellaneous::all();
 
         return view($this->__loadDataToView($this->view . 'pages.single'),compact('data'));
@@ -81,7 +96,9 @@ class HomeBaseController extends FrontendBaseController
             ]);
         }
         session()->put('cart', $cart);
-        return redirect()->route($this->__loadDataToView('cart.list'));
+        Alert::success('Congrats', 'Product added on your cart');
+
+        return redirect()->back();
     }
     public function cartlist()
     {
@@ -124,7 +141,7 @@ class HomeBaseController extends FrontendBaseController
             ->get();
 //        dd($data['searched_items'] );
         $data['product']=Product::latest()->take(20)->get();
-        $data['category']=Category::all();
+        $data['category']=Category::where('status',1)->get();
         $data['footer']=Miscellaneous::all();
         return view($this->__loadDataToView($this->view . 'pages.product'),compact('data'));
     }
@@ -136,7 +153,7 @@ class HomeBaseController extends FrontendBaseController
             ->orderBy('name', 'asc')
             ->get();
         $data['product']=Product::latest()->take(20)->get();
-        $data['category']=Category::all();
+        $data['category']=Category::where('status',1)->get();
         $data['footer']=Miscellaneous::all();
         $data['cartItems'] = Cart::where('user_id',Auth::user()->id)->get();
 
@@ -178,14 +195,14 @@ public function sendConfirmationemail(Request $request){
 
      $data['row'] =User::where('id',(Auth::user()->id))->get();
 //     dd($data['row']);
-     $data['category']=Category::all();
+     $data['category']=Category::where('status',1)->get();
      $data['footer']=Miscellaneous::all();
      return view($this->__loadDataToView($this->view . 'pages.profile'),compact('data'));
  }
 
     public function profile_edit(Request $request){
 //             $data['row'] =User::findOrFail($id);
-        $data['category']=Category::all();
+        $data['category']=Category::where('status',1)->get();
         $data['footer']=Miscellaneous::all();
         $data['row'] =User::where('id',(Auth::user()->id))->get();
 //        dd($data['row']);
@@ -202,6 +219,16 @@ public function sendConfirmationemail(Request $request){
         return redirect()->route($this->__loadDataToView($this->view . 'pages.profile'),compact('data'));
     }
 
+    public function category($id){
+
+        $this->title= 'Categories';
+        $data = [];
+//        dd('hi');
+        $data['product'] = Product::where('category_id', $id)->get();
+        $data['category']=Category::where('status',1)->get();
+        $data['footer']=Miscellaneous::all();
+        return view($this->__loadDataToView($this->view . 'pages.categories'),compact('data'));
+    }
 
 
 
