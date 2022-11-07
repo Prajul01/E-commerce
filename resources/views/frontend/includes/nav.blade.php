@@ -24,7 +24,7 @@
 
                 <div class="search" style="border: 2px solid white">
 
-                        <form action="{{ route('frontend.product') }}" method="GET" role="search">
+                        <form action="{{ route('frontend.search') }}" method="GET" role="search">
 
                             <div class="input-group">
                         <span class="input-group-btn mr-5 mt-1">
@@ -32,7 +32,7 @@
                             </button>
                         </span>
                                 <input type="text" class="form-control mr-4" name="term" placeholder="Search Products"id="term" style="border:2px  solid #ff8080" width="100%" >
-                                <a href="{{ route('frontend.product') }}" class=" mt-1">
+                                <a href="{{ route('frontend.search') }}" class=" mt-1">
                             <span class="input-group-btn">
 
                             </span>
@@ -48,7 +48,7 @@
 
                 @if(auth()->user() != NULL)
 
-                    <div class="account"><a href="{{route('profile.edit')}}"><span> </span>{{auth()->user()->name}}</a></div>
+                    <div class="account"><a href="{{route('profile')}}"><span> </span>{{auth()->user()->name}}</a></div>
 
                 <ul class="login">
                     <div  aria-labelledby="navbarDropdown">
@@ -72,14 +72,15 @@
                     @if(auth()->user() != NULL)
                 <div class="cart">
                     <a href="{{ route('cart.list')}}"><span> </span>CART </a>
-                    <sup style="margin: 2px;width: 00px;
 
-    background: #ff8080;
+                    <sup style="margin: 2px;width: 00px;background: #ff8080;border-radius: 80px;
+                    padding: 4px;color: white;">
 
-    border-radius: 80px;
-    padding: 4px;
-   color: white;
-    "> 4 </sup>
+
+
+{{--                        {{$data['cart']}}--}}
+
+                    </sup>
                 </div>
                     @endif
                 <div class="clearfix"> </div>

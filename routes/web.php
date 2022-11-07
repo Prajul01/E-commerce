@@ -46,11 +46,14 @@ All Normal Users Routes List
     Route::post('cart-store/{id}', [HomeBaseController::class, 'addToCart'])->name('cart.store');
     Route::delete('cart-destroy/{id}', [HomeBaseController::class, 'removeCart'])->name('cart.destroy');
     Route::get('frontend.product', [HomeBaseController::class, 'product'])->name('frontend.product');
-    Route::get('frontend.category/{id}', [HomeBaseController::class, 'category'])->name('f.category');
+    Route::get('frontend.search', [HomeBaseController::class, 'search'])->name('frontend.search');
+    Route::get('frontend.category/{id}', [HomeBaseController::class, 'category'])->name('frontend.category');
 Route::resource('suscribers',SuscribersController::class);
 Route::get('changeStatusSuscribers', [SuscribersController::class, 'changeStatusSuscribers'])->name('changeStatusSuscribers');
 Route::post('order', [HomeBaseController::class, 'order'])->name('order');
 Route::post('sendConfirmationemail', [HomeBaseController::class, 'sendConfirmationemail'])->name('sendConfirmationemail');
+Route::get('profile', [UserController::class, 'view'])->name('profile');
+Route::get('profile.view', [UserController::class, 'show'])->name('profile.view');
 Route::get('profile-edit', [UserController::class, 'edit'])->name('profile.edit');
 Route::put('profile-update', [UserController::class, 'update'])->name('profile.update');
 
@@ -95,7 +98,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::post('send', [EmailController::class, 'send'])->name('email.send');
 
     Route::resource('user',UserController::class);
-    Route::get('changeUser', [UserController::class, 'changeUser'])->name('changeUser');
+    Route::get('changeUserStatus', [UserController::class, 'changeUserStatus'])->name('changeUserStatus');
+    Route::get('status/{id}', [UserController::class, 'status'])->name('user.status');
+    Route::put('statusUpdate/{id}', [UserController::class, 'statusUpdate'])->name('user.statusUpdate');
 
 
 

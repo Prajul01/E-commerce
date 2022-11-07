@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\backend\BackendBaseController;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends BackendBaseController
@@ -45,7 +46,11 @@ class HomeController extends BackendBaseController
     public function adminHome()
     {
         $this->title='Admin';
-        return view($this->__loadDataToView('backend.adminHome'));
+        $data['product']=Product::where('status',1)->count();
+        $data['users']=User::where('status',0)->count();
+        $data['admin']=User::where('status',1)->count();
+//        dd();
+        return view($this->__loadDataToView('backend.adminHome'),compact('data'));
     }
 
     /**

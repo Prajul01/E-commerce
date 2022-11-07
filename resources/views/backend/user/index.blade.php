@@ -3,15 +3,6 @@
 @section('content')
 
     <section class="content">
-        @if(Session::has('success'))
-            <p class="alert alert-success">{{Session::get('success')}}</p>
-        @endif
-        @if(Session::has('error'))
-            <p class="alert alert-danger">{{Session::get('danger')}}</p>
-        @endif
-        @if(Session::has('warning'))
-            <p class="alert alert-warning">{{Session::get('warning')}}</p>
-        @endif
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -31,6 +22,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Status</th>
+                                    <th>Action</th>
 
                                 </tr>
                                 </thead>
@@ -43,11 +35,18 @@
                                         <td>{!! $cat->email !!}</td>
 
 
-                                        <td>
-                                            <input data-id="{{$cat->id}}" class="toggle-class" type="checkbox" data-onstyle="success"
-                                                   data-offstyle="danger" data-toggle="toggle" data-on="Admin" data-off="User"
-                                                {{ $cat->type ? 'checked' : '' }}>
 
+                                        <td>
+                                        {{$cat->status}}
+
+
+
+                                        </td>
+                                        <td>
+
+                                            <a href="{{route('user.status',$cat->id)}}" class="btn btn-sm btn-warning">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>
                                         </td>
 
 
@@ -63,6 +62,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Status</th>
+                                    <th>Action</th>
 
 
                                 </tr>
@@ -81,10 +81,10 @@
     <link rel="stylesheet" href="{{asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
 @endsection
 @section('jss')
+
     <script src="{{asset('backend/plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
@@ -114,23 +114,12 @@
             });
         });
     </script>
-    <script>
-        $(function() {
-            $('.toggle-class').change(function() {
-                var type = $(this).prop('checked') == true ? 1 : 0;
-                var id = $(this).data('id');
 
-                $.ajax({
-                    type: "GET",
-                    dataType: "json",
-                    url: '/changeUser',
-                    data: {'type': type, 'id': id},
-                    success: function(data){
-                        console.log(data.success)
-                    }
-                });
-            })
-        })
+
+
+    <script>
+        $('.delete').on("submit", function(){
+            return confirm("Do you want to delete this item?");
+        });
     </script>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 @endsection

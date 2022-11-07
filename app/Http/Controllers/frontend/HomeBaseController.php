@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Mail\orderConfirmation;
 use App\Mail\suscriber;
 use App\Models\Banner;
@@ -33,7 +34,9 @@ class HomeBaseController extends FrontendBaseController
     public function nav(){
 
 
-        $data['cartItems'] = Cart::where('user_id',Auth::user()->id)->get();
+                $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
+
+//        dd($data['count']);
 
         return view($this->__loadDataToView($this->view . 'includes.nav'),compact('data'));
 
@@ -43,36 +46,34 @@ class HomeBaseController extends FrontendBaseController
 
     public function index()
     {
-//        $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
         $this->title= 'Home';
         $data = [];
 //        $data['row'] =User::findOrFail($id);
-        $data['product']=Product::latest()->take(6)->get();
+        $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
+        $data['product']=Product::latest()->where('status',1)->take(6)->get();
         $data['category']=Category::where('status',1)->get();
         $data['banner'] = Banner::latest()->take(2)->where('status',1)->get();
         $data['slider'] = Slider::latest()->take(3)->where('status',1)->get();
-//        dd($data['slider']);
         $data['footer']=Miscellaneous::all();
-//        dd( $data['slider']);
         return view($this->__loadDataToView($this->view . 'home'),compact('data'));
     }
     public function main()
     {
         $this->title= 'Home';
-        $data['product']=Product::latest()->take(6)->get();;
+        $data['product']=Product::latest()->where('status',1)->take(6)->get();;
         $data['category']=Category::where('status',1)->get();
         $data['banner'] = Banner::latest()->take(2)->where('status',1)->get();
         $data['slider'] = Slider::latest()->take(3)->where('status',1)->get();
         $data['footer']=Miscellaneous::all();
-//        dd( $data['slider']);
         return view($this->__loadDataToView( 'welcome'),compact('data'));
     }
     public function single($id)
     {
         $data = [];
 
+//        $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
         $this->title= 'Single';
-        $data['pro']=Product::where('id', $id)->first();
+        $data['pro']=Product::where('id', $id)->where('status',1)->first();
         $data['category']=Category::where('status',1)->get();
         $data['footer']=Miscellaneous::all();
 
@@ -80,6 +81,7 @@ class HomeBaseController extends FrontendBaseController
     }
     public function addToCart(Request $request,$id)
     {
+
         $product = Product::findOrFail($id);
         $cart= session()->get('cart', []);
         if(isset($cart[$id])) {
@@ -102,11 +104,13 @@ class HomeBaseController extends FrontendBaseController
     }
     public function cartlist()
     {
+
         $this->title= 'Cart';
         $data = [];
         $data['footer']=Miscellaneous::all();
 
         $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
+
         $data['cartItems'] = Cart::where('user_id',Auth::user()->id)->get();
 //        dd($data['cartItems']);
         $data['category']=Category::all();
@@ -130,37 +134,46 @@ class HomeBaseController extends FrontendBaseController
         return redirect()->route('cart.list' );
     }
 
-    public function product(Request $request){
+    public function product(){
         $this->title= 'Product';
-
-
         $data = [];
-        $query = $request->input('term');
-        $data['searched_items'] = Product::where('name', 'like', "%$query%")
-            ->orderBy('name', 'asc')
-            ->get();
-//        dd($data['searched_items'] );
-        $data['product']=Product::latest()->take(20)->get();
+//        $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
+        $data['product']=Product::latest()->where('status',1)->take(20)->get();
         $data['category']=Category::where('status',1)->get();
         $data['footer']=Miscellaneous::all();
         return view($this->__loadDataToView($this->view . 'pages.product'),compact('data'));
     }
-    public function checkout(Request $request ){
-        $this->title= 'CheckOut';
+
+    public function search(Request $request){
+        $this->title= 'Searched Products';
         $data = [];
+//        $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
+
         $query = $request->input('term');
-        $data['searched_items'] = Product::where('name', 'like', "%$query%")
+        $data['searched_items'] = Product::where('name', 'like', "%$query%")->where('status',1)
             ->orderBy('name', 'asc')
             ->get();
-        $data['product']=Product::latest()->take(20)->get();
+//        dd($data['searched_items'] );
+//        $data['product']=Product::latest()->where('status',1)->take(20)->get();
+        $data['category']=Category::where('status',1)->get();
+        $data['footer']=Miscellaneous::all();
+        return view($this->__loadDataToView($this->view . 'pages.search'),compact('data','query'));
+    }
+    public function checkout(Request $request ){
+
+        $this->title= 'CheckOut';
+        $data = [];
+//        $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
+        $data['product']=Product::latest()->where('status',1)->take(20)->get();
         $data['category']=Category::where('status',1)->get();
         $data['footer']=Miscellaneous::all();
         $data['cartItems'] = Cart::where('user_id',Auth::user()->id)->get();
 
         return view($this->__loadDataToView($this->view . 'pages.checkout'),compact('data'));
     }
-public function sendConfirmationemail(Request $request){
+public function sendConfirmationemail(UserRequest $request){
     $this->title= 'Thank-You';
+//    $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
     $data['cartItems'] = Cart::where('user_id',Auth::user()->id)->get();
     foreach ($data['cartItems'] as $carts) {
         $data['order']=Order::create([
@@ -181,8 +194,6 @@ public function sendConfirmationemail(Request $request){
         'email' => $request->input('email'),
         'address' => $request->input('address'),
         'phone' => $request->input('phone'),
-
-//
     ];
     Mail::to('Admin@gmail.com')->send(new orderConfirmation($order_data));
     return view($this->__loadDataToView($this->view . 'pages.thankyou'),compact('data'));
@@ -190,18 +201,18 @@ public function sendConfirmationemail(Request $request){
 
 }
  public function profile(){
-     $this->title= 'Profile';
-//     $data['row'] =User::findOrFail($id);
 
+     $this->title= 'ProfView';
+//     $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
      $data['row'] =User::where('id',(Auth::user()->id))->get();
-//     dd($data['row']);
      $data['category']=Category::where('status',1)->get();
      $data['footer']=Miscellaneous::all();
-     return view($this->__loadDataToView($this->view . 'pages.profile'),compact('data'));
+     return view($this->__loadDataToView($this->view . 'pages.profile_view'),compact('data'));
  }
 
     public function profile_edit(Request $request){
-//             $data['row'] =User::findOrFail($id);
+
+//        $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
         $data['category']=Category::where('status',1)->get();
         $data['footer']=Miscellaneous::all();
         $data['row'] =User::where('id',(Auth::user()->id))->get();
@@ -216,18 +227,19 @@ public function sendConfirmationemail(Request $request){
             $request->session()->flash('error', $this->panel .' Update failed');
 
         }
-        return redirect()->route($this->__loadDataToView($this->view . 'pages.profile'),compact('data'));
+        return redirect()->route($this->__loadDataToView($this->view . 'pages.profijle'),compact('data'));
     }
 
     public function category($id){
 
         $this->title= 'Categories';
         $data = [];
-//        dd('hi');
-        $data['product'] = Product::where('category_id', $id)->get();
+        $data['product'] = Product::where('category_id', $id)->where('status',1)->get();
+        $data['cat']=Category::where('id', $id)->pluck('name');
+//        $data['cart']=Cart::where('user_id',Auth::user()->id)->count();
         $data['category']=Category::where('status',1)->get();
         $data['footer']=Miscellaneous::all();
-        return view($this->__loadDataToView($this->view . 'pages.categories'),compact('data'));
+        return view($this->__loadDataToView($this->view . 'pages.categories'),compact('data',));
     }
 
 

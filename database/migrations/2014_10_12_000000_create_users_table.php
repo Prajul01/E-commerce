@@ -18,9 +18,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone')->nullable()->unique();
+            $table->date('birth')->nullable();
+            $table->boolean('gender')->nullable();
+            $table->string('address')->nullable();
             $table->string('password');
-            $table->tinyInteger('type')->default(0);
-            /* Users: 0=>User, 1=>Admin, 2=>Manager */
+            $table->boolean('status')->default('0');
+            /* Users: 0=>User, 1=>Admin */
             $table->rememberToken();
             $table->timestamps();
         });

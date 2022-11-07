@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             BannerSeeder::class,
             SliderSeeder::class,
-            MiscellaneousSeeder::class
+            MiscellaneousSeeder::class,
+            ProductSeeder::class,
                    ]);
 
         // \App\Models\User::factory(10)->create();

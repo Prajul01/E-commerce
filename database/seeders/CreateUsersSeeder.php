@@ -19,13 +19,13 @@ class CreateUsersSeeder extends Seeder
             [
                 'name'=>'Admin User',
                 'email'=>'admin@gmail.com',
-                'type'=>1,
+                'status'=>1,
                 'password'=> bcrypt('123456'),
             ],
             [
                 'name'=>'User',
                 'email'=>'user@gmail.com',
-                'type'=>0,
+                'status'=>0,
                 'password'=> bcrypt('123456'),
             ],
         ];

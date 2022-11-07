@@ -12,76 +12,92 @@
 
     <div class="container pb-60">
         <div class="row">
-            <div class="col-md-12 text-center">
-                <h2>Profile</h2>
-                <form method="POST" action="{{ route('profile.update') }}">
-                    {!! Form::hidden('_method', 'PUT') !!}
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" value="{{auth()->user()->id}}" name="user_id">
-                    <div class="row mb-3">
-                        <label for="name" class="col-md-2 col-form-label text-md-end">{{ __('Name') }}</label>
+            <div style="width: 20%;float: left;margin-top: 10px">
+                <p>
+                    Hello,{{auth()->user()->name}}
+                </p>
+                <h4>Manage My Account</h4>
+                <ol>
+                    <p><a href="{{route('profile.view')}}">My profile</a></p>
 
-                        <div class="col-md-6">
-                            <input id="name" type="name" class="form-control @error('name') is-invalid @enderror" name="name" value="{{auth()->user()->name}}" required autocomplete="name" autofocus>
-
-                            @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-
-                    <br>
-                    <div class="row mb-3">
-                        <label for="email" class="col-md-2 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{auth()->user()->email}}" required autocomplete="email">
-
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="row mb-2">
-                        <label for="password" class="col-md-2 ">{{ __('Password') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  >
-
-                            @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <br>
-{{--                    <div class="row mb-3">--}}
-{{--                        <label for="password-confirm" class="col-md-2 col-form-label text-md-end">{{ __('Confirm Password') }}</label>--}}
-
-{{--                        <div class="col-md-6">--}}
-{{--                            <input id="password-confirm" type="password" class="form-control" name="password-confirm" >--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-                    <div class="row mb-0">
-                        <div class="col-md-6 offset-md-4" style="margin-left: 10%;margin-top: 10px;">
-                            <button type="submit" class="btn btn-primary">
-                                Update
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                </ol>
 
             </div>
+            <div class="col-md-12" style="width: 80%;float: right;height:500px" >
+                <h2>Manage My Account</h2>
+
+                <div  style=" background: #f0faf7;height: 50%;width: 100%">
+                    <div class="w3-card" style="float:left;margin: 10px;">
+                        <div style="float:left;margin-right:200px">
+                            <div>Full Name</div>
+                            <div>
+                                <p style="color:darkgreen">{{auth()->user()->name}}</p>
+
+                            </div>
+                        </div>
+                        <div style="float:left;margin-right:200px">
+                            <div>Email</div>
+                            <div>
+                                <p style="color:darkgreen">{{auth()->user()->email}}</p></div>
+                        </div>
+                        <div style="float:left;">
+                            <div>Mobile</div>
+                            <div> @if(auth()->user()->phone==null)
+                                    <p style="color:red">Add  your gender in profile</p>
+                                @else
+                                    <p style="color:darkgreen">{{auth()->user()->phone}}</p>
+                                @endif
+                                    </div>
+
+                        </div>
+                </div>
+                    <br>
+
+                    <div  style=" background: #f0faf7;height: 50%;width: 100%">
+                        <div class="w3-card" style="float:left;margin: 10px;">
+                            <div style="float:left;margin-right:200px">
+                                <div>DOB</div>
+
+                                <div> @if(auth()->user()->birth==null)
+                                        <p style="color:red">Add  your  date of birth in profile</p>
+                                    @else
+
+                                        <p style="color:darkgreen">{{auth()->user()->birth}}</p>
+
+
+                                    @endif
+                                </div>
+
+                            </div>
+                            </div>
+                            <div style="float:left;margin-right:200px">
+                                <div>Gender</div>
+                                <div>
+                                    @if(auth()->user()->gender==null)
+                                          <p style="color:red">Add  your gender in profile</p>
+                                    @else
+                                        <p style="color:darkgreen">
+                                            @if(auth()->user()->gender==1)
+                                                Male
+                                            @else
+                                                Fe-Male
+                                            @endif
+                                        </p>
+
+                                    @endif
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    <a href="{{route('profile.edit')}}" class="btn btn-info" style="margin-left: 10px;width: 200px"> Edit Profile</a>
+
+
+            </div>
+
+
         </div>
     </div>
 </div><!--end container-->

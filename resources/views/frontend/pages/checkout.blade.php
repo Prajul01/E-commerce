@@ -23,27 +23,30 @@
                         @csrf
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                {!! Form::text('name', '', [ 'class'=>'form-control', 'placeholder'=>'Enter name']); !!}
+                                <input type="text" name="name" value="{{auth()->user()->name}} " class="form-control" readonly>
                                 @error('name')
-                                <p class="text-danger">{{$message}}</p>
+                                <p class="text-danger">{{$message}} </p>
                                 @enderror
                             </div>
                             <div class="col-sm-10">
-                                {!! Form::text('email', '', [ 'class'=>'form-control', 'placeholder'=>'Enter email address']); !!}
+                                <input type="text" name="email" value="{{auth()->user()->email}} " class="form-control" readonly>
+
                                 @error('email')
                                 <p class="text-danger">{{$message}}</p>
                                 @enderror
                             </div>
                             <div class="col-sm-10">
-                                {!! Form::text('phone', '', [ 'class'=>'form-control', 'placeholder'=>'Enter phone number']); !!}
+                                <input type="text" name="phone" value="{{auth()->user()->phone}} " class="form-control" readonly>
+
                                 @error('phone')
                                 <p class="text-danger">{{$message}}</p>
                                 @enderror
                             </div>
                             <div class="col-sm-10">
-                                {!! Form::text('address', '', [ 'class'=>'form-control', 'placeholder'=>'Enter address']); !!}
+                                <input type="text" name="address" value="{{auth()->user()->address}} " class="form-control" readonly>
+
                                 @error('address')
-                                <p class="text-danger">{{$message}}</p>
+                                <p class="text-danger">{{$message}}You can add this from your profile</p>
                                 @enderror
                             </div>
                         </div>

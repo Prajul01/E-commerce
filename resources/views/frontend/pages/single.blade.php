@@ -16,7 +16,7 @@
             <div class="grid images_3_of_2">
                 <ul id="etalage">
                     <li>
-                        <a href="optionallink.html">
+{{--                        <a href="optionallink.html">--}}
                             <img src="{{asset('uploads/images/product/'.$data['pro']->image)}}" alt="">
 {{--                            <img class="etalage_thumb_image" src="images/s4.jpg" class="img-responsive" />--}}
                         </a>
@@ -96,4 +96,4 @@ Add to cart
 <!---->
 @include('frontend.includes.footer')
 </body>
-</html>html
+</html>

@@ -5,18 +5,16 @@
 
             @foreach($data['category'] as $cat)
                 <div style="border: 1px solid black;padding: 10px">
-                <li><a href="{{route('f.category',$cat->id)}}" id="category_id" > <strong>{{$cat->name}}</strong></a>
+                    @if(auth()->user() == NULL)
+                        <li><a href="{{ route('login') }}" id="category_id" > <strong>{{$cat->name}}</strong></a>
+                        </li>
+
+                    @else
+                <li><a href="{{route('frontend.category',$cat->id)}}" id="category_id" > <strong>{{$cat->name}}</strong></a>
                 </li>
+                        @endif
                 </div>
                 @endforeach
-
-
-
-
-
-
-
-
         </ul>
     </div>
     <!--initiate accordion-->

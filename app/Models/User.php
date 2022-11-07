@@ -22,7 +22,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'type',
+        'status',
+        'gender',
+        'phone',
+        'birth',
     ];
 
     /**
@@ -44,7 +47,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected function type(): Attribute
+    protected function status(): Attribute
     {
         return new Attribute(
             get: fn ($value) =>  ["user", "admin", "manager"][$value],
